@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:my_app/components/transactionForm.dart';
 import 'package:my_app/transaction.dart';
 
 void main() => runApp(MyApp());
@@ -27,7 +28,6 @@ class MyApp extends StatelessWidget {
             title: Text('new app'),
           ),
           body: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               Container(
                 width: double.infinity,
@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
                   ),
                 ),
               ),
+              TransactionForm(),
               Column(
                 children: transactions
                     .map((transaction) => Card(
