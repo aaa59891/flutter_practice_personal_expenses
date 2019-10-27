@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:my_app/components/transactionForm.dart';
-import 'package:my_app/transaction.dart';
+import 'package:my_app/models/transaction.dart';
+import 'package:my_app/widgets/transaction_form.dart';
 
 void main() => runApp(MyApp());
 
@@ -38,7 +38,9 @@ class MyApp extends StatelessWidget {
                   ),
                 ),
               ),
-              TransactionForm(),
+              TransactionForm(
+                onSubmit: (title, amount) => print("$title, $amount"),
+              ),
               Column(
                 children: transactions
                     .map((transaction) => Card(
