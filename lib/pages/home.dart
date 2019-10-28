@@ -53,6 +53,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         title: Text('new app'),
+        centerTitle: false,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.add),
