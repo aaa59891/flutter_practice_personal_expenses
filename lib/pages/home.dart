@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/models/transaction.dart';
+import 'package:my_app/widgets/chart.dart';
 import 'package:my_app/widgets/stateless/transaction_form.dart';
 import 'package:my_app/widgets/stateless/transaction_list.dart';
 
@@ -10,18 +11,18 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final List<Transaction> _transactions = [
-    Transaction(
-      id: 'test1',
-      amount: 12.2,
-      date: DateTime.now(),
-      title: 'first transaction',
-    ),
-    Transaction(
-      id: 'test2',
-      amount: 14.2,
-      date: DateTime.now(),
-      title: 'second transaction',
-    ),
+    // Transaction(
+    //   id: 'test1',
+    //   amount: 12.2,
+    //   date: DateTime.now(),
+    //   title: 'first transaction',
+    // ),
+    // Transaction(
+    //   id: 'test2',
+    //   amount: 14.2,
+    //   date: DateTime.now().subtract(Duration(days: 1)),
+    //   title: 'second transaction',
+    // ),
   ];
 
   void _addTransaction(String title, double amount) {
@@ -48,6 +49,12 @@ class _HomeState extends State<Home> {
     );
   }
 
+  List<Transaction> get _recentTransactions {
+    final dayAfter = DateTime.now().subtract(Duration(days: 7));
+    return this._transactions.where((tx) => tx.date.isAfter(dayAfter)).toList();
+  }
+
+  final now = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,10 +74,7 @@ class _HomeState extends State<Home> {
             Container(
               width: double.infinity,
               child: Card(
-                child: Text(
-                  'Chart',
-                  textAlign: TextAlign.center,
-                ),
+                child: Chart(this._recentTransactions),
               ),
             ),
             TransactionList(this._transactions),
