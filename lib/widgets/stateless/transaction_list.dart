@@ -16,12 +16,6 @@ class TransactionList extends StatelessWidget {
           );
         },
         itemCount: this.transactions.length,
-        // children: this
-        //     .transactions
-        //     .map((transaction) => TransactionItem(
-        //           transaction: transaction,
-        //         ))
-        //     .toList(),
       ),
     );
   }

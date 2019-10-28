@@ -20,9 +20,10 @@ class _TransactionFormState extends State<TransactionForm> {
       return;
     }
     this.widget.onSubmit(
-      this._titleController.text,
-      double.parse(this._amountController.text),
-    );
+          this._titleController.text,
+          double.parse(this._amountController.text),
+        );
+    Navigator.of(this.context).pop();
   }
 
   @override
