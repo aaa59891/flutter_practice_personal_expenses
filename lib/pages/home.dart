@@ -73,9 +73,7 @@ class _HomeState extends State<Home> {
           children: <Widget>[
             Container(
               width: double.infinity,
-              child: Card(
-                child: Chart(this._recentTransactions),
-              ),
+              child: Chart(this._recentTransactions),
             ),
             TransactionList(this._transactions),
           ],

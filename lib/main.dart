@@ -18,6 +18,9 @@ class MyApp extends StatelessWidget {
                 fontSize: 18,
                 fontFamily: 'OpenSans',
               ),
+              button: TextStyle(
+                color: Colors.white,
+              ),
             ),
         appBarTheme: AppBarTheme(
           textTheme: ThemeData.light().textTheme.copyWith(
