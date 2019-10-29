@@ -25,14 +25,18 @@ class _HomeState extends State<Home> {
     // ),
   ];
 
-  void _addTransaction(String title, double amount) {
+  void _addTransaction(
+    String title,
+    double amount,
+    DateTime date,
+  ) {
     print(title);
     this.setState(() {
       this._transactions.add(
             Transaction(
                 amount: amount,
                 title: title,
-                date: DateTime.now(),
+                date: date,
                 id: 'test${this._transactions.length + 1}'),
           );
     });
@@ -47,6 +51,14 @@ class _HomeState extends State<Home> {
         );
       },
     );
+  }
+
+  Function onDelete(String id) {
+    return () {
+      this.setState(() {
+        this._transactions.removeWhere((tx) => tx.id == id);
+      });
+    };
   }
 
   List<Transaction> get _recentTransactions {
@@ -75,7 +87,7 @@ class _HomeState extends State<Home> {
               width: double.infinity,
               child: Chart(this._recentTransactions),
             ),
-            TransactionList(this._transactions),
+            TransactionList(this._transactions, this.onDelete),
           ],
         ),
       ),

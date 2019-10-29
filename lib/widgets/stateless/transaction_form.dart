@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class TransactionForm extends StatefulWidget {
-  final void Function(String, double) onSubmit;
+  final void Function(String, double, DateTime) onSubmit;
 
   TransactionForm({@required this.onSubmit});
 
@@ -19,12 +19,14 @@ class _TransactionFormState extends State<TransactionForm> {
 
   void _onSubmit() {
     if (this._titleController.text.isEmpty ||
-        this._amountController.text.isEmpty) {
+        this._amountController.text.isEmpty ||
+        this._pickDate == null) {
       return;
     }
     this.widget.onSubmit(
           this._titleController.text,
           double.parse(this._amountController.text),
+          this._pickDate,
         );
     Navigator.of(this.context).pop();
   }

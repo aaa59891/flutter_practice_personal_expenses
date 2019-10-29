@@ -26,6 +26,7 @@ class ChartBar extends StatelessWidget {
                 ),
               ),
               FractionallySizedBox(
+                alignment: FractionalOffset.center,
                 heightFactor: this.txData.percentage,
                 child: Container(
                   decoration: BoxDecoration(
