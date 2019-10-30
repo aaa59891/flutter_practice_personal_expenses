@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/models/transaction.dart';
 import 'package:my_app/widgets/chart.dart';
-import 'package:my_app/widgets/stateless/transaction_form.dart';
-import 'package:my_app/widgets/stateless/transaction_list.dart';
+import 'package:my_app/widgets/transaction_form.dart';
+import 'package:my_app/widgets/transaction_list.dart';
 
 class Home extends StatefulWidget {
   @override
