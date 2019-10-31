@@ -8,39 +8,36 @@ class TransactionList extends StatelessWidget {
   TransactionList(this.transactions, this.onDelete);
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 300,
-      child: this.transactions.isEmpty
-          ? Column(
-              children: <Widget>[
-                SizedBox(
-                  height: 10,
+    return this.transactions.isEmpty
+        ? Column(
+            children: <Widget>[
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                'No transactions added yet',
+                style: Theme.of(context).textTheme.title,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                height: 200,
+                child: Image.asset(
+                  'assets/images/waiting.png',
+                  fit: BoxFit.cover,
                 ),
-                Text(
-                  'No transactions added yet',
-                  style: Theme.of(context).textTheme.title,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  height: 200,
-                  child: Image.asset(
-                    'assets/images/waiting.png',
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ],
-            )
-          : ListView.builder(
-              itemBuilder: (ctx, index) {
-                return TransactionItem(
-                  transaction: this.transactions[index],
-                  onDelete: this.onDelete,
-                );
-              },
-              itemCount: this.transactions.length,
-            ),
-    );
+              ),
+            ],
+          )
+        : ListView.builder(
+            itemBuilder: (ctx, index) {
+              return TransactionItem(
+                transaction: this.transactions[index],
+                onDelete: this.onDelete,
+              );
+            },
+            itemCount: this.transactions.length,
+          );
   }
 }

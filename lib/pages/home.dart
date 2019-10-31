@@ -69,25 +69,36 @@ class _HomeState extends State<Home> {
   final now = DateTime.now();
   @override
   Widget build(BuildContext context) {
+    final appBar = AppBar(
+      title: Text('new app'),
+      centerTitle: false,
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.add),
+          onPressed: () => this._showTransactionForm(context),
+        )
+      ],
+    );
     return Scaffold(
-      appBar: AppBar(
-        title: Text('new app'),
-        centerTitle: false,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () => this._showTransactionForm(context),
-          )
-        ],
-      ),
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             Container(
+              height: (MediaQuery.of(context).size.height -
+                      appBar.preferredSize.height -
+                      MediaQuery.of(context).padding.top) *
+                  .3,
               width: double.infinity,
               child: Chart(this._recentTransactions),
             ),
-            TransactionList(this._transactions, this.onDelete),
+            Container(
+              height: (MediaQuery.of(context).size.height -
+                      appBar.preferredSize.height -
+                      MediaQuery.of(context).padding.top) *
+                  .7,
+              child: TransactionList(this._transactions, this.onDelete),
+            ),
           ],
         ),
       ),
