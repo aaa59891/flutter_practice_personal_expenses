@@ -24,6 +24,7 @@ class _HomeState extends State<Home> {
     //   title: 'second transaction',
     // ),
   ];
+  bool _isSwitchOn = false;
 
   void _addTransaction(
     String title,
@@ -86,18 +87,29 @@ class _HomeState extends State<Home> {
           children: <Widget>[
             Container(
               height: (MediaQuery.of(context).size.height -
-                      appBar.preferredSize.height -
-                      MediaQuery.of(context).padding.top) *
-                  .3,
-              width: double.infinity,
-              child: Chart(this._recentTransactions),
+                      appBar.preferredSize.height) *
+                  .2,
+              child: Row(
+                children: <Widget>[
+                  Text('Show chart'),
+                  Switch(
+                    value: this._isSwitchOn,
+                    onChanged: (value) {
+                      this.setState(() {
+                        this._isSwitchOn = value;
+                      });
+                    },
+                  ),
+                ],
+              ),
             ),
             Container(
               height: (MediaQuery.of(context).size.height -
-                      appBar.preferredSize.height -
-                      MediaQuery.of(context).padding.top) *
-                  .7,
-              child: TransactionList(this._transactions, this.onDelete),
+                      appBar.preferredSize.height) *
+                  .8,
+              child: this._isSwitchOn
+                  ? Chart(this._recentTransactions)
+                  : TransactionList(this._transactions, this.onDelete),
             ),
           ],
         ),
