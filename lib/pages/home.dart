@@ -80,40 +80,57 @@ class _HomeState extends State<Home> {
         )
       ],
     );
+    final isLandScape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+    final landScapePage = Column(
+      children: <Widget>[
+        Container(
+          height: (MediaQuery.of(context).size.height -
+                  appBar.preferredSize.height) *
+              .2,
+          child: Row(
+            children: <Widget>[
+              Text('Show chart'),
+              Switch(
+                value: this._isSwitchOn,
+                onChanged: (value) {
+                  this.setState(() {
+                    this._isSwitchOn = value;
+                  });
+                },
+              ),
+            ],
+          ),
+        ),
+        Container(
+          height: (MediaQuery.of(context).size.height -
+                  appBar.preferredSize.height) *
+              .8,
+          child: this._isSwitchOn
+              ? Chart(this._recentTransactions)
+              : TransactionList(this._transactions, this.onDelete),
+        ),
+      ],
+    );
+    final portraitPage = Column(
+      children: <Widget>[
+        Container(
+            height: (MediaQuery.of(context).size.height -
+                    appBar.preferredSize.height) *
+                .3,
+            child: Chart(this._recentTransactions)),
+        Container(
+          height: (MediaQuery.of(context).size.height -
+                  appBar.preferredSize.height) *
+              .7,
+          child: TransactionList(this._transactions, this.onDelete),
+        ),
+      ],
+    );
     return Scaffold(
       appBar: appBar,
       body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Container(
-              height: (MediaQuery.of(context).size.height -
-                      appBar.preferredSize.height) *
-                  .2,
-              child: Row(
-                children: <Widget>[
-                  Text('Show chart'),
-                  Switch(
-                    value: this._isSwitchOn,
-                    onChanged: (value) {
-                      this.setState(() {
-                        this._isSwitchOn = value;
-                      });
-                    },
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              height: (MediaQuery.of(context).size.height -
-                      appBar.preferredSize.height) *
-                  .8,
-              child: this._isSwitchOn
-                  ? Chart(this._recentTransactions)
-                  : TransactionList(this._transactions, this.onDelete),
-            ),
-          ],
-        ),
-      ),
+          child: isLandScape ? landScapePage : portraitPage),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
