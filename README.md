@@ -25,3 +25,4 @@
     - Platform.isIOS
 7. adaptive widgets: some widgets have `adaptive` constructor to build the widget depends on different platform
 8. Theme suggestion for now: using MaterialApp to set theme because CupertinoApp does not have enought flexbility to setup
+9. `CupertinoButton` is similar with `FlatButton` in default
