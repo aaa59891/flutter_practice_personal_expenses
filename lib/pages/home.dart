@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:my_app/models/transaction.dart';
 import 'package:my_app/widgets/chart.dart';
@@ -89,8 +91,9 @@ class _HomeState extends State<Home> {
           child: Row(
             children: <Widget>[
               Text('Show chart'),
-              Switch(
+              Switch.adaptive(
                 value: this._isSwitchOn,
+                activeColor: Theme.of(context).accentColor,
                 onChanged: (value) {
                   this.setState(() {
                     this._isSwitchOn = value;
@@ -124,10 +127,12 @@ class _HomeState extends State<Home> {
       body: SingleChildScrollView(
           child: isLandScape ? landScapePage : portraitPage),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () => this._showTransactionForm(context),
-      ),
+      floatingActionButton: Platform.isIOS
+          ? null
+          : FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: () => this._showTransactionForm(context),
+            ),
     );
   }
 }

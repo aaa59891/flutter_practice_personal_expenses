@@ -21,4 +21,7 @@
         - get widget information
 5. how to set portait mode only:
     - SystemChrome.setPerferredOrientations([]) in main function
+6. platform check: 
+    - Platform.isIOS
+7. adaptive widgets: some widgets have `adaptive` constructor to build the widget depends on different platform
 
