@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app/models/transaction.dart';
 import 'package:my_app/widgets/chart.dart';
@@ -73,27 +74,42 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
-    final appBar = AppBar(
-      title: Text('new app'),
-      centerTitle: false,
-      actions: <Widget>[
-        IconButton(
-          icon: Icon(Icons.add),
-          onPressed: () => this._showTransactionForm(context),
-        )
-      ],
-    );
+    final theme = Theme.of(context);
+    final isIOS = Platform.isIOS;
+
+    final ObstructingPreferredSizeWidget appBar = isIOS
+        ? CupertinoNavigationBar(
+            middle: Text('new app'),
+            trailing: GestureDetector(
+              child: Icon(CupertinoIcons.add),
+              onTap: () => this._showTransactionForm(context),
+            ),
+          )
+        : AppBar(
+            title: Text('new app'),
+            centerTitle: false,
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.add),
+                onPressed: () => this._showTransactionForm(context),
+              )
+            ],
+          );
     final isLandScape = mediaQuery.orientation == Orientation.landscape;
     final landScapePage = Column(
       children: <Widget>[
         Container(
           height: (mediaQuery.size.height - appBar.preferredSize.height) * .2,
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text('Show chart'),
+              Text(
+                'Show chart',
+                style: theme.textTheme.title,
+              ),
               Switch.adaptive(
                 value: this._isSwitchOn,
-                activeColor: Theme.of(context).accentColor,
+                activeColor: theme.accentColor,
                 onChanged: (value) {
                   this.setState(() {
                     this._isSwitchOn = value;
@@ -122,17 +138,27 @@ class _HomeState extends State<Home> {
         ),
       ],
     );
-    return Scaffold(
-      appBar: appBar,
-      body: SingleChildScrollView(
-          child: isLandScape ? landScapePage : portraitPage),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: Platform.isIOS
-          ? null
-          : FloatingActionButton(
-              child: Icon(Icons.add),
-              onPressed: () => this._showTransactionForm(context),
-            ),
+    final body = SafeArea(
+      child: SingleChildScrollView(
+        child: isLandScape ? landScapePage : portraitPage,
+      ),
     );
+    return isIOS
+        ? CupertinoPageScaffold(
+            child: body,
+            navigationBar: appBar,
+          )
+        : Scaffold(
+            appBar: appBar,
+            body: body,
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerFloat,
+            floatingActionButton: isIOS
+                ? null
+                : FloatingActionButton(
+                    child: Icon(Icons.add),
+                    onPressed: () => this._showTransactionForm(context),
+                  ),
+          );
   }
 }

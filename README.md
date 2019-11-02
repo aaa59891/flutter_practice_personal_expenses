@@ -24,4 +24,4 @@
 6. platform check: 
     - Platform.isIOS
 7. adaptive widgets: some widgets have `adaptive` constructor to build the widget depends on different platform
-
+8. Theme suggestion for now: using MaterialApp to set theme because CupertinoApp does not have enought flexbility to setup
