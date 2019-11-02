@@ -11,6 +11,7 @@ class TransactionItem extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Card(
       elevation: 5,
       margin: EdgeInsets.symmetric(horizontal: 5, vertical: 8),
@@ -24,15 +25,23 @@ class TransactionItem extends StatelessWidget {
         ),
         title: Text(
           this.transaction.title,
-          style: Theme.of(context).textTheme.title,
+          style: theme.textTheme.title,
         ),
         subtitle: Text(
           DateFormat.yMMMd().format(transaction.date),
         ),
-        trailing: IconButton(
-          icon: Icon(Icons.delete),
-          onPressed: this.onDelete(this.transaction.id),
-        ),
+        trailing: MediaQuery.of(context).size.width > 450
+            ? FlatButton.icon(
+                icon: Icon(Icons.delete),
+                label: Text('Delete'),
+                textColor: theme.errorColor,
+                onPressed: this.onDelete(this.transaction.id),
+              )
+            : IconButton(
+                icon: Icon(Icons.delete),
+                color: theme.errorColor,
+                onPressed: this.onDelete(this.transaction.id),
+              ),
       ),
     );
   }

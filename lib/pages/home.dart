@@ -70,6 +70,7 @@ class _HomeState extends State<Home> {
   final now = DateTime.now();
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
     final appBar = AppBar(
       title: Text('new app'),
       centerTitle: false,
@@ -80,14 +81,11 @@ class _HomeState extends State<Home> {
         )
       ],
     );
-    final isLandScape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
+    final isLandScape = mediaQuery.orientation == Orientation.landscape;
     final landScapePage = Column(
       children: <Widget>[
         Container(
-          height: (MediaQuery.of(context).size.height -
-                  appBar.preferredSize.height) *
-              .2,
+          height: (mediaQuery.size.height - appBar.preferredSize.height) * .2,
           child: Row(
             children: <Widget>[
               Text('Show chart'),
@@ -103,9 +101,7 @@ class _HomeState extends State<Home> {
           ),
         ),
         Container(
-          height: (MediaQuery.of(context).size.height -
-                  appBar.preferredSize.height) *
-              .8,
+          height: (mediaQuery.size.height - appBar.preferredSize.height) * .8,
           child: this._isSwitchOn
               ? Chart(this._recentTransactions)
               : TransactionList(this._transactions, this.onDelete),
@@ -115,14 +111,10 @@ class _HomeState extends State<Home> {
     final portraitPage = Column(
       children: <Widget>[
         Container(
-            height: (MediaQuery.of(context).size.height -
-                    appBar.preferredSize.height) *
-                .3,
+            height: (mediaQuery.size.height - appBar.preferredSize.height) * .3,
             child: Chart(this._recentTransactions)),
         Container(
-          height: (MediaQuery.of(context).size.height -
-                  appBar.preferredSize.height) *
-              .7,
+          height: (mediaQuery.size.height - appBar.preferredSize.height) * .7,
           child: TransactionList(this._transactions, this.onDelete),
         ),
       ],
